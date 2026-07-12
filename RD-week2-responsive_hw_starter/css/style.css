@@ -44,7 +44,36 @@ div{
 }
 
 
+/* =========================================
+   Query #1: Tablet View (Trigger tại 772px)
+   ========================================= */
+@media screen and (min-width: 772px) {
+  /* Thay đổi layout của các div */
+  div {
+    width: 45vw;                 /* 45% viewport width */
+    display: inline-block;       /* Ép các div nằm ngang cạnh nhau */
+    vertical-align: top;         /* Canh lề trên cùng để layout không bị lệch nếu text dài ngắn khác nhau */
+  }
 
+  /* Giới hạn chiều cao hình ảnh */
+  img {
+    max-height: 30vh;            /* Tối đa 30% viewport height */
+    width: auto;                 /* Giữ nguyên tỷ lệ khung hình của ảnh */
+  }
+}
+
+/* =========================================
+   Query #2: Large Screen View (Trigger tại 998px)
+   ========================================= */
+@media screen and (min-width: 998px) {
+  /* Thay đổi layout thành 3 cột */
+  div {
+    width: 30vw;                 /* 30% viewport width */
+  }
+  
+  /* Không cần viết lại display: inline-block hay max-height cho img 
+     vì trình duyệt sẽ tự động kế thừa từ media query 772px ở trên */
+}
 
 
 

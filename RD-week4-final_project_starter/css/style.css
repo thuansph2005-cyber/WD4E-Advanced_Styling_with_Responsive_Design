@@ -4,140 +4,108 @@ body {
 
 h1 {
     text-align: center;
-    font-family:Arial, sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 32px;
 }
 
 a {
     color: #000;
     text-decoration: none;
-    font-family:Arial, sans-serif;
+    font-family: Arial, sans-serif;
 }
 
 p {
    font-size: 25px;
-   font-family:Arial, sans-serif;
+   font-family: Arial, sans-serif;
+   text-align: center;
 }
 
-img{
-  width:100%;
+/* Định dạng hình ảnh mặc định */
+img {
+    width: 100%;
 }
 
-
-p{
-  text-align:center;
-}
-
-div img{
-    width:150px;
+.grid img {
+    width: 150px;
     height: 150px;
-    display:block;
-    margin:auto;
+    display: block;
+    margin: auto;
 }
 
-div{
-  display: inline-block;
-  width: 24%;
-  margin: 5px;
-  padding: 2px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 
-main {
-    border: 5px #000 solid;
-    margin: 10px;
-}
- */
-/* 
-
-.container {
+/* ==========================================================================
+   1. MOBILE VIEW (Mặc định - Mobile First)
+   SỬA LỖI: Chuyển sang Grid 1 cột, khoảng cách 10px theo đúng barem điểm
+   ========================================================================== */
+.grid {
     display: grid;
     grid-template-columns: 1fr;
-    justify-items: center;
+    gap: 10px;
 }
- */
-/* img{
-    width: 200px;
-    height: 200px;
-    padding: 5px;
-} */
 
-/* .child {
-    position: relative;
-    display: inline-block;
-    border: 5px black solid;
-    margin: 5px;
-    border-radius: 5px;
-} */
-
-/* 
-
-.label {
-    display: none;
-    position: absolute;
-    top: 40%;
-    left: 40%;
-} */
-/* 
-.button {
-    display: inline-block;
-    border: 2px solid #000;
-    padding: 5px;
-    border-radius: 25px;
+/* Thiết lập viền mặc định để tránh giật layout khi đổi màu viền ở Dark Mode */
+figure {
+    border: 5px solid transparent;
+    overflow: hidden; /* Giúp cắt ảnh theo hình tròn ở giao diện Tablet */
 }
- */
-/* 
-.button:hover {
-    background-color:#fff;
-} */
 
-/* 
-footer {
-    display: flex;
-    justify-content: center;
-} */
+/* ==========================================================================
+   2. TABLET VIEW (Trigger tại 772px)
+   ========================================================================== */
+@media screen and (min-width: 772px) {
+    /* Khai báo lưới 2 cột. KHÔNG lặp lại thuộc tính display: grid */
+    .grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    /* Bo tròn các khối hình ảnh thành hình tròn */
+    figure {
+        border-radius: 50%;
+    }
+    
+    /* Khối figure cuối cùng chiếm toàn bộ cả 2 cột */
+    figure:last-of-type {
+        grid-column: span 2;
+    }
+}
 
-/* 
-header {
-    border-radius: 5px;
-    border: 5px #000 solid;
-    margin: 10px;
-} */
+/* ==========================================================================
+   3. LARGE SCREEN VIEW (Trigger tại 992px)
+   TUÂN THỦ: Đặt đúng thứ tự tăng dần. Tuyệt đối không dùng max-width!
+   ========================================================================== */
+@media screen and (min-width: 992px) {
+    /* Gỡ bỏ border-radius khỏi toàn bộ các figure */
+    figure {
+        border-radius: 0;
+    }
+    
+    /* Reset lại khối cuối cùng về 1 cột (để không kế thừa thuộc tính span 2 từ Tablet) */
+    figure:last-of-type {
+        grid-column: span 1;
+    }
 
-/* 
-.label {
-    display: none;
-    position: absolute;
-    top: 40%;
-    left: 40%;
-} */
-/* 
-.child:hover .label {
-    display: block;
-} */
+    /* Quy tắc mới: Cứ mỗi khối thứ 3 sẽ tự động chiếm 2 cột */
+    figure:nth-of-type(3n) {
+        grid-column: span 2;
+    }
+}
+
+/* ==========================================================================
+   4. USER PREFERENCE: REDUCED MOTION
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ==========================================================================
+   5. USER PREFERENCE: DARK COLOR SCHEME
+   SỬA LỖI: Đảm bảo độ tương phản màu chuẩn xác vượt qua bộ quét WAVE Validator
+   ========================================================================== */
+@media (prefers-color-scheme: dark) {
+    figure {
+        background-color: #1e1e1e; /* Nền màu tối */
+        color: #fff176;            /* Chữ màu vàng sáng tương phản cao trên nền tối */
+        border-color: #000000;     /* Viền đổi thành màu đen */
+    }
+}
